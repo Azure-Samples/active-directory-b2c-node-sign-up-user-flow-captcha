@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign in</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- TODO: favicon -->
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!--Replace with your own CSS-->
+    <link
+      href="https://shasacustomjs.blob.core.windows.net/b2c/global.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <div class="container unified_container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="image-center">
+                <img
+                  alt="Wingtip Toys"
+                  class="login-logo"
+                  src="https://shasacustomjs.blob.core.windows.net/b2c/logo.png"
+                />
+              </div>
+              <h3 class="text-center">Sign up for a new account</h3>
+              <div id="api" data-name="Unified"></div>
+              <div id="html_element"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      captchaUserResponseTokenEl = "extension_CaptchaUserResponseToken";
+
+      captchaCallback = function (response) {
+        document.getElementById(captchaUserResponseTokenEl).value = response;
+      };
+
+      onloadCallback = function () {
+        grecaptcha.render("html_element", {
+          "sitekey": "6Lcve94ZAAAAALW_7FlZ1M9CbYROwKjTRPc5EUBu", // ENTER YOUR SITE KEY 
+          "callback": captchaCallback,
+        });
+
+        // Hides captcha custom attribute from view from the user
+        document.getElementById(captchaUserResponseTokenEl).style.display = "none";
+        document.getElementById(captchaUserResponseTokenEl+"_label").style.display = "none";
+      };
+    </script>
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=6LdTYN0ZAAAAAFrZuaUooRSxC_2qwHG_LAY1TZSE"
+      async
+      defer
+    ></script>
+  </body>
+</html>
