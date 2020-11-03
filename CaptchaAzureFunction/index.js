@@ -30,7 +30,7 @@ module.exports = async function (context, req) {
 
     let data = req.body;
 
-    const extensionAttributeKey = "extension_8a757fd3a4624a76b4cae2f6388daaaa_CaptchaUserResponseToken";
+    const extensionAttributeKey = "extension_" + process.env["B2C_EXTENSIONS_APP_ID"] +"_CaptchaUserResponseToken";
 
     let captchaToken = data && data[extensionAttributeKey]; //extension app-id
 
@@ -39,7 +39,7 @@ module.exports = async function (context, req) {
     }
 
     let captchaApiCheck = captchaToken && await axios.post("https://www.google.com/recaptcha/api/siteverify", qs.stringify({
-        "secret": process.env["SECRET_KEY"],
+        "secret": process.env["CAPTCHA_SECRET_KEY"],
         "response": captchaToken
     })).then(function (response) {
         const success = response.data.success;

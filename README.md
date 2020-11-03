@@ -48,12 +48,16 @@ This same pattern can be used for other Captcha services and with other API host
 1. Enter `CaptchaUserResponseToken` as the attribute **Name**
 1. **Create**
 
+![Custom attribute creation](ReadmeImages/custom-attribute-add.png)
+
 ## Create a user flow
 
 This can be either be a **sign up and sign in** or a just **sign up** or user flow. Either way, the captcha will only be shown during sign up.
 
 1. [Follow these instructions](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-user-flows). If using an existing user flow, note that user flows must be of the "Recommended (next-generation preview)" version type.
 1. In the user flow settings, navigate to **User attributes** and select the **CaptchaUserResponseToken** claim.
+
+![Select custom attribute in user flow](ReadmeImages/select-custom-attribute.png)
 
 ## Configure custom HTML, JavaScript, and Page Layouts
 
@@ -111,8 +115,7 @@ These steps assume you use Visual Studio Code, but deploying the Azure Function 
 
 This sample protects the web API endpoint using [HTTP Basic authentication](https://tools.ietf.org/html/rfc7617).
 
-Here, username and password are stored as environment variables so they're not stored as part of the repository. Read more about the [local.settings.json](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=macos%2Ccsharp%2Cbash#local-settings-file) file.
-
+Here, username and password are stored as environment variables so they're not stored as part of the repository. Read more about the [local.settings.json](https://docs.microsoft.com/azure/azure-functions/functions-run-local?tabs=macos%2Ccsharp%2Cbash#local-settings-file) file.
 
 1. Create a **local.settings.json** file in your root folder
 1. Copy and paste the below code onto the file:
@@ -125,16 +128,21 @@ Here, username and password are stored as environment variables so they're not s
     "FUNCTIONS_WORKER_RUNTIME": "node",
     "BASIC_AUTH_USERNAME": "<USERNAME>",
     "BASIC_AUTH_PASSWORD": "<PASSWORD>",
-    "SECRET_KEY": "<CAPTCHA_SECRET_KEY>
+    "CAPTCHA_SECRET_KEY": "<CAPTCHA_SECRET_KEY>",
+    "B2C_EXTENSIONS_APP_ID": "<B2C_EXTENSIONS_APP_ID>"
   }
 }
 ```
 
-The `<CAPTCHA_SECRET_KE>` is the server-side secret you generated in the reCAPTCHA service.
+The `<CAPTCHA_SECRET_KEY>` is the server-side secret you generated in the reCAPTCHA service.
+
+THE `<B2C_EXTENSIONS_APP_ID>` is the application ID of the app used by Azure AD B2C to store directory attributes. You can find this application ID by navigating to **App registrations**, searching for `b2c-extensions-app` and copying the `Application (client) ID` from the **Overview** pane. Remove the `-` characters.
+
+![Find extensions app](ReadmeImages/search-for-extensions-app-id.png)
 
 ### Deploy the application to the web
 
-1. Follow steps of [this](https://docs.microsoft.com/en-us/azure/javascript/tutorial-vscode-serverless-node-04) guide #1-7 to deploy your Azure Function to the cloud. Copy the endpoint web URL of your Azure Function.
+1. Follow steps of [this](https://docs.microsoft.com/azure/javascript/tutorial-vscode-serverless-node-04) guide #1-7 to deploy your Azure Function to the cloud. Copy the endpoint web URL of your Azure Function.
 1. Once deployed, you'll see an **'Upload settings'** option. Select this. It will upload your environment variables onto the [Application settings](https://docs.microsoft.com/azure/azure-functions/functions-develop-vs-code?tabs=csharp#application-settings-in-azure) of the App service. These application settings can also be configured or [managed via the Azure portal](https://docs.microsoft.com/azure/azure-functions/functions-how-to-use-azure-function-app-settings).
 
 To learn more about Visual Studio Code development for Azure Functions, see [this](https://docs.microsoft.com/azure/azure-functions/functions-develop-vs-code?tabs=csharp#republish-project-files).
@@ -147,8 +155,7 @@ Follow the steps outlined in ["Add an API connector"](https://docs.microsoft.com
 
 Your API connector configuration should look like the following:
 
-<img src="ReadmeImages/enable-api-connector.png" alt="API connector configuration"
-    title="API connector configuration" width="400" />
+![API connector configuration](ReadmeImages/create-api-connctor.png)
 
 - **Endpoint URL** is the Function URL you copied earlier if the deployed Azure Function.
 - **Username** and **Password** are the Username and Passwords you defined as environment variables earlier.
