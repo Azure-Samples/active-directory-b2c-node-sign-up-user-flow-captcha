@@ -94,6 +94,8 @@ If you have your own custom HTML, just copy and paste the `<script>` elements on
 1. Set `CaptchaUserResponseType` **Optional** value to to `No`.
 1. Do the previous three steps for **Social account sign up page** layout if using social identity providers.
 
+![Select custom attribute in user flow](ReadmeImages/configure_page_layouts.png)
+
 ### Enable JavaScript
 
 1. From your user flow, go to **Properties** and select **Enable JavaScript enforcing page layout (preview)**
