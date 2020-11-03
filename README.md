@@ -30,7 +30,7 @@ Key components:
 
 - **reCAPTCHA** - a captcha service for protecting against bots and other automated abuse.
 - **Azure AD B2C sign-up user flow** - The sign-up experience that will be using the captcha service. Will utilize the **custom page content** and **API connectors** to integrate with the captcha service.
-- **Azure Function** - API endpoint hosted by you that works in conjunction with the API connectors feature. This API is responsible for inter-mediating between the user flow and the captcha service to determine whether a user can successfully sign-up.
+- **Azure Function** - API endpoint hosted by you that works in conjunction with the **API connectors** feature. This API is responsible for inter-mediating between the user flow and the captcha service to determine whether a user can successfully sign-up.
 
 This same pattern can be used for other Captcha services and with other API hosting services.
 
@@ -141,14 +141,14 @@ To learn more about Visual Studio Code development for Azure Functions, see [thi
 
 ## Configure and enable the API connector
 
-Follow the steps outlined in ["Add an API connector"](https://docs.microsoft.com/azure/active-directory-b2c/add-api-connector) to create an API connector and enable it your user flow. The end result is shown below.
+Follow the steps outlined in ["Add an API connector"](https://docs.microsoft.com/azure/active-directory-b2c/add-api-connector) to create an API connector and enable it your user flow. The configuration should look like the below.
 
 ### API connector configuration
 
 Your API connector configuration should look like the following:
 
-<!-- <img src="images/api-connector-configuration.png" alt="API connector configuration"
-    title="API connector configuration" width="400" /> -->
+<img src="ReadmeImages/enable-api-connector.png" alt="API connector configuration"
+    title="API connector configuration" width="400" />
 
 - **Endpoint URL** is the Function URL you copied earlier if the deployed Azure Function.
 - **Username** and **Password** are the Username and Passwords you defined as environment variables earlier.
@@ -156,7 +156,7 @@ Your API connector configuration should look like the following:
 ### Enable the API connector
 
 In the **API connector** settings for your user flow, select the API connector to be invoked at the **Before creating the user** step.
-<!-- ![API connector selected](images/api-connector-selected.png) -->
+![API connector selected](ReadmeImages/enable-api-connector.png)
 
 ## Contributing
 
