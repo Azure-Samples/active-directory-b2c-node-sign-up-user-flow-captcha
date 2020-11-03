@@ -91,8 +91,7 @@ If you have your own custom HTML, just copy and paste the `<script>` elements on
 1. Select **Local account sign up page** layout
 1. Toggle **Use custom page content** to "YES"
 1. Paste the URI where your custom HTML lives in **Use custom page content**
-1. Set `CaptchaUserResponseType` **Optional** value to to `No`.
-1. Do the previous three steps for **Social account sign up page** layout if using social identity providers.
+1. Do the previous two steps for **Social account sign up page** layout if using social identity providers.
 
 ![Select custom attribute in user flow](ReadmeImages/configure_page_layouts.png)
 

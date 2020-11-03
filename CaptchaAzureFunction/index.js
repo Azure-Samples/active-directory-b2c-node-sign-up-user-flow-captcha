@@ -24,20 +24,14 @@ module.exports = async function (context, req) {
     }
 
     context.log('JavaScript HTTP trigger function processed a request.');
-    
-    var body = {};
-    var status = 200;
 
     let data = req.body;
 
-    const extensionAttributeKey = "extension_" + process.env["B2C_EXTENSIONS_APP_ID"] +"_CaptchaUserResponseToken";
+    const extensionAttributeKey = "extension_" + process.env["B2C_EXTENSIONS_APP_ID"] + "_CaptchaUserResponseToken";
 
     let captchaToken = data && data[extensionAttributeKey]; //extension app-id
 
-    if (!captchaToken) {
-        context.log.error("No captcha token verification issue was sent to the API.");
-    }
-
+    // Calls Captcha API check for server-side validation of the generated token
     let captchaApiCheck = captchaToken && await axios.post("https://www.google.com/recaptcha/api/siteverify", qs.stringify({
         "secret": process.env["CAPTCHA_SECRET_KEY"],
         "response": captchaToken
@@ -55,18 +49,26 @@ module.exports = async function (context, req) {
     context.log("value of captcha check");
     context.log(captchaApiCheck);
 
-    if (captchaApiCheck) {
+
+    var body = {
+        "version": "1.0.0",
+        "status": 400,
+        "action": "ValidationError",
+    };
+    var status = 400;
+
+    if (!captchaToken) {
+        context.log("No captcha token verification code was sent to the API.");
+        body["userMessage"] = "Please complete the Captcha."
+    } else if (!captchaApiCheck) {
+        body["userMessage"] = "Invalid Captcha. Please try again."
+    }
+    else {
+        status = 200;
         body = {
             "version": "1.0.0",
             "action": "Continue",
-            [extensionAttributeKey]: ""
-        };
-    }
-    else {
-        body = {
-            "version": "1.0.0",
-            "action": "ShowBlockPage",
-            "userMessage": "Invalid captcha or captcha expired. Please try signing up again or contact an administrator.",
+            [extensionAttributeKey]: "" //overwrites extension attribute to "" in order to not store it in the directory
         };
     }
 
