@@ -48,24 +48,23 @@ This same pattern can be used for other Captcha services and with other API host
 1. Enter `CaptchaUserResponseToken` as the attribute **Name**
 1. **Create**
 
+## Create a user flow
 
-## 1. Create a user flow
+This can be either be a **sign up and sign in** or a just **sign up** or user flow. Either way, the captcha will only be shown during sign up.
 
-This can be either be a **sign up and sign in** or a just **sign up** or user flow.
-
-1. [Follow these instructions.](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-user-flows).
+1. [Follow these instructions](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-user-flows). If using an existing user flow, note that user flows must be of the "Recommended (next-generation preview)" version type.
 1. In the user flow settings, navigate to **User attributes** and select the **CaptchaUserResponseToken** claim.
 
-## 2. Configure custom HTML, JavaScript, and Page Layouts
+## Configure custom HTML, JavaScript, and Page Layouts
 
 The **Assets > selfAsserted.html** file contains an HTML template with JavaScript (`<script>` tags) that will do three things:
 - Load the reCAPTCHA script (`https://www.google.com/recaptcha/api.js`), which renders the reCAPTCHA widget.
-- Hide the `extension_CaptchaUserResponseToken` input element and label from the UI shown to the user.
-- When a user completes the captcha challange, reCAPTCHA verifies the user's response and generates a token. When this happens, the callback `captchaCallback` in the custom JavaScript sets the value of **extension_CaptchaUserResponseToken** to the generated token value.
+- Hide the `extension_CaptchaUserResponseToken` input element and label, corresponding to the custom attribute created before, from the UI shown to the user.
+- When a user completes the captcha challange, reCAPTCHA verifies the user's response and generates a token. When this happens, the callback `captchaCallback` in the custom JavaScript sets the value of **extension_CaptchaUserResponseToken** to the generated token value. This value will be submitted to the API endpoint as described in the "Create and deploy your API" section.
 
 Read more about reCAPTCHA V2 checkbox client-side validation [here](https://developers.google.com/recaptcha/docs/display).
 
-Follow the instructions below to enable this for your user flow.
+Follow the instructions below to use this custom HTML and JS for your user flow.
 
 ### Modify the selfAsserted.html page
 
@@ -94,7 +93,7 @@ If you have your own custom HTML, just copy and paste the `<script>` elements on
 
 Learn more [here](https://docs.microsoft.com/azure/active-directory-b2c/user-flow-javascript-overview).
 
-## 3. Host and enable your API
+## Create and deploy your API
 
 These steps assume you use Visual Studio Code, but deploying the Azure Function via the Azure Portal or any other code editor will also work.
 
@@ -110,7 +109,7 @@ These steps assume you use Visual Studio Code, but deploying the Azure Function 
 
 ### Add environment variables
 
-This sample protects our web API endpoint using [HTTP Basic authentication](https://tools.ietf.org/html/rfc7617).
+This sample protects the web API endpoint using [HTTP Basic authentication](https://tools.ietf.org/html/rfc7617).
 
 Here, username and password are stored as environment variables so they're not stored as part of the repository. Read more about the [local.settings.json](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=macos%2Ccsharp%2Cbash#local-settings-file) file.
 
@@ -142,7 +141,7 @@ To learn more about Visual Studio Code development for Azure Functions, see [thi
 
 ## Configure and enable the API connector
 
-Follow the steps outlined in "Add an API connector" for [guest user self-service sign-up](https://docs.microsoft.com/azure/active-directory/external-identities/self-service-sign-up-add-api-connector) or for [Azure AD B2C](https://docs.microsoft.com/azure/active-directory-b2c/add-api-connector) to create an API connector and enable it your user flow. The end result is shown below.
+Follow the steps outlined in ["Add an API connector"](https://docs.microsoft.com/azure/active-directory-b2c/add-api-connector) to create an API connector and enable it your user flow. The end result is shown below.
 
 ### API connector configuration
 
@@ -158,3 +157,17 @@ Your API connector configuration should look like the following:
 
 In the **API connector** settings for your user flow, select the API connector to be invoked at the **Before creating the user** step.
 <!-- ![API connector selected](images/api-connector-selected.png) -->
+
+## Contributing
+
+This project welcomes contributions and suggestions. Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
