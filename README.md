@@ -158,7 +158,7 @@ Follow the steps outlined in ["Add an API connector"](https://docs.microsoft.com
 
 Your API connector configuration should look like the following:
 
-![API connector configuration](ReadmeImages/create-api-connctor.png)
+![API connector configuration](ReadmeImages/create-api-connector.png)
 
 - **Endpoint URL** is the Function URL you copied earlier if the deployed Azure Function.
 - **Username** and **Password** are the Username and Passwords you defined as environment variables earlier.
