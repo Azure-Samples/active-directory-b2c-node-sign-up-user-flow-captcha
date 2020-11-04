@@ -103,7 +103,7 @@ Learn more [here](https://docs.microsoft.com/azure/active-directory-b2c/user-flo
 
 ## Create and deploy your API
 
-These steps assume you use Visual Studio Code, but deploying the Azure Function via the Azure Portal or any other code editor will also work.
+These steps assume you use Visual Studio Code, but deploying the Azure Function via the Azure Portal, terminal or command prompt, or any other code editor will also work.
 
 **Prerequisite**: Install the [Azure Functions extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) for Visual Studio Code.
 
