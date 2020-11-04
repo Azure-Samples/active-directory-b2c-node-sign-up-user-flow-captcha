@@ -27,6 +27,7 @@ module.exports = async function (context, req) {
 
     let data = req.body;
 
+
     const extensionAttributeKey = "extension_" + process.env["B2C_EXTENSIONS_APP_ID"] + "_CaptchaUserResponseToken";
 
     let captchaToken = data && data[extensionAttributeKey]; //extension app-id
@@ -62,8 +63,7 @@ module.exports = async function (context, req) {
         body["userMessage"] = "Please complete the Captcha."
     } else if (!captchaApiCheck) {
         body["userMessage"] = "Invalid Captcha. Please try again."
-    }
-    else {
+    } else {
         status = 200;
         body = {
             "version": "1.0.0",
