@@ -5,7 +5,7 @@ languages:
   - nodejs
 products:
   - azure-active-directory
-description: "A sample to demonstrate how to use a captcha service during sign-up in Azure AD B2C user flows and Node.js Azure Function"
+description: "A sample to demonstrate how to use a CAPTCHA service during sign-up in Azure AD B2C user flows and Node.js Azure Function"
 urlFragment: active-directory-node-b2c-sign-up-user-flow-captcha
 ---
 
@@ -24,21 +24,21 @@ urlFragment: active-directory-node-b2c-sign-up-user-flow-captcha
 
 ## Key Concepts
 
-Captcha services are often used in authentication scenarios to protect against bots or other automated abuse. This sample demonstrates how to use Azure AD B2C user flows to utilize a captcha service during user sign-up.
+CAPTCHA services are often used in authentication scenarios to protect against bots or other automated abuse. This sample demonstrates how to integrate an Azure AD B2C sign-up user flow with a CAPTCHA service.
 
 Key components:
 
-- **reCAPTCHA** - a captcha service for protecting against bots and other automated abuse.
-- **Azure AD B2C sign-up user flow** - The sign-up experience that will be using the captcha service. Will utilize the [custom HTML/JS](https://docs.microsoft.com/azure/active-directory-b2c/customize-ui-overview) and [API connectors](https://docs.microsoft.com/azure/active-directory-b2c/api-connectors-overview) to integrate with the captcha service.
-- **Azure Function** - API endpoint hosted by you that works in conjunction with the **API connectors** feature. This API is responsible for inter-mediating between the user flow and the captcha service to determine whether a user can successfully sign-up.
+- [**reCAPTCHA**](https://developers.google.com/recaptcha/) - a CAPTCHA service for protecting against bots and other automated abuse.
+- **Azure AD B2C sign-up user flow** - The sign-up experience that will be using the CAPTCHA service. Will utilize the [custom HTML & JavaScript](https://docs.microsoft.com/azure/active-directory-b2c/customize-ui-overview) and [API connectors](https://docs.microsoft.com/azure/active-directory-b2c/api-connectors-overview) to integrate with the CAPTCHA service.
+- **Azure Functions** - API endpoint hosted by you that works in conjunction with the **API connectors** feature. This API is responsible for doing the server-side validation of the CAPTCHA challenge.
 
-This same pattern can be used for other Captcha services and with other API hosting services.
+This same pattern can be used for other CAPTCHA services and with other API hosting services.
 
 ## Create an API key pair for reCAPTCHA V2
 
-- Follow the [reCAPTCHA documentation](https://developers.google.com/recaptcha/intro) to create an API key pair for your site.
+- Follow the [reCAPTCHA documentation](https://developers.google.com/recaptcha/intro) to create an API key pair for your scenario.
 - Use your Azure AD B2C tenant as the **domain**: `<tenantname>.b2clogin.com`
-- You will receive a **site_key** and **secret_key**. The values of these are referred to as **`CAPTCHA_SITE_KEY`** and **`CAPTCHA_SECRET_KEY`** in the sample code.
+- You will receive a **site_key** and **secret_key**. The values of these are referred to as **`CAPTCHA_SITE_KEY`** and **`CAPTCHA_SECRET_KEY`** in the sample code and correspond to keys used in client-side and server-side CAPTCHA API calls.
 
 ## Create a "CaptchaUserResponseToken" Custom Attribute
 
@@ -54,7 +54,7 @@ Learn more about [custom attributes](https://docs.microsoft.com/azure/active-dir
 
 ## Create a user flow
 
-This can be either be a **sign up and sign in** or a just **sign up** or user flow. Either way, the captcha will only be shown during sign up.
+This can be either be a **sign up and sign in** or a just **sign up** or user flow. Either way, the CAPTCHA will only be shown during sign up.
 
 1. [Follow these instructions](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-create-user-flows). If using an existing user flow, note that user flows must be of the "Recommended (next-generation preview)" version type.
 1. In the user flow settings, navigate to **User attributes** and select the **CaptchaUserResponseToken** claim.
@@ -65,9 +65,9 @@ This can be either be a **sign up and sign in** or a just **sign up** or user fl
 
 The **Assets > selfAsserted.html** file contains an HTML template with JavaScript (`<script>` tags) that will do three things:
 
-- Load the reCAPTCHA script (`https://www.google.com/recaptcha/api.js`), which renders the reCAPTCHA widget.
-- Hide the `extension_CaptchaUserResponseToken` input element and label, corresponding to the custom attribute created before, from the UI shown to the user.
-- When a user completes the captcha challange, reCAPTCHA verifies the user's response and generates a token. When this happens, the callback `captchaCallback` in the custom JavaScript sets the value of **extension_CaptchaUserResponseToken** to the generated token value. This value will be submitted to the API endpoint as described in the "Create and deploy your API" section.
+- Load the reCAPTCHA script (`https://www.google.com/recaptcha/api.js`), which renders the reCAPTCHA widget and performs client-side CAPTCHA validation.
+- Hide the `extension_CaptchaUserResponseToken` input element and label, corresponding to the CaptchaUserResponseToken custom attribute, from the UI shown to the user.
+- When a user completes the CAPTCHA challenge, reCAPTCHA verifies the user's response and generates a token. When this happens, the callback `captchaCallback` in the custom JavaScript sets the value of **extension_CaptchaUserResponseToken** to the generated token value. This value will be submitted to the API endpoint as described in the "Create and deploy your API" section.
 
 Read more about reCAPTCHA V2 checkbox client-side validation [here](https://developers.google.com/recaptcha/docs/display).
 
@@ -75,7 +75,7 @@ Follow the instructions below to use this custom HTML and JS for your user flow.
 
 ### Modify the selfAsserted.html page
 
-Modify the **Assets > selfAsserted.html** so that `<CAPTCHA_SITE_KEY>` matches the value you generated in the first step.
+Modify the **Assets > selfAsserted.html** file so that `<CAPTCHA_SITE_KEY>` matches the value you generated in the first step, which is used by the reCAPTCHA script.
 
 ### Host the HTML page
 
