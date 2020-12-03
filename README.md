@@ -15,12 +15,14 @@ urlFragment: active-directory-node-b2c-sign-up-user-flow-captcha
 
 | File/folder                 | Description                                |
 | --------------------------- | ------------------------------------------ |
-| [Assets/selfAsserted.html](selfAsserted.html)      | Sample custom HTML and JS script file for user flow.     |
-| [Assets](selfAsserted.html)      | Contains UI/UX assets used by the user flows.    |
-| [CaptchaAzureFunction](AzureFunction.cs)      | Sample source code for Node.js HTTP trigger.    |
+| Assets/selfAsserted.html      | Sample custom HTML and JS script file for user flow.     |
+| Assets     | Contains UI/UX assets used by the user flows.    |
+| CaptchaAzureFunction(AzureFunction.cs)      | Sample source code for Node.js HTTP trigger.    |
 | `README.md`                 | This README file.                          |
 | `.gitignore`                | Define what to ignore at commit time.      |
-| `LICENSE`                   | The license for the sample.                |
+| `CONTRIBUTING.md`                   | Guidance on how to contribute to this repository.        |
+| `LICENSE.md`                   | The license for the sample.                |
+| `SECURITY.md`                   | The security notice for the sample.      |
 
 ## Key Concepts
 
