@@ -81,7 +81,7 @@ Modify the **Assets > selfAsserted.html** file so that `<CAPTCHA_SITE_KEY>` matc
 
 ### Host the HTML page
 
-Host the html page on a CORS enabled web endpoint. For example, follow **steps 2 and 3** of [these](https://docs.microsoft.com/azure/active-directory-b2c/custom-policy-ui-customization#2-create-an-azure-blob-storage-account) instructions ("Create an Azure Blob storage account" and "Configure CORS").
+Host the html page on a CORS enabled web endpoint. For example, follow **steps 2 and 3** of [these](https://docs.microsoft.com/en-us/azure/active-directory-b2c/customize-ui-with-html?pivots=b2c-user-flow#2-create-an-azure-blob-storage-account) instructions ("Create an Azure Blob storage account" and "Configure CORS").
 
 If you have your own custom HTML, just copy and paste the `<script>` elements onto your HTML page.
 
